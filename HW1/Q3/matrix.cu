@@ -21,15 +21,15 @@
 
 __global__ void matrixMult(float *C, const float *A, const float *B, int numARows, int numAColumns, int numBColumns)
 {
-    // Each thread computes one element C[row][col]
+    // every thread computes one element C[row][col]
     int row = blockIdx.y * blockDim.y + threadIdx.y;
     int col = blockIdx.x * blockDim.x + threadIdx.x;
     
-    // Check bounds
+    // check the bounds
     if (row < numARows && col < numBColumns) {
         float sum = 0.0f;
         
-        // Compute dot product of row from A and column from B
+        // dot product
         for (int k = 0; k < numAColumns; k++) {
             sum += A[row * numAColumns + k] * B[k * numBColumns + col];
         }
@@ -94,6 +94,6 @@ int main()
     cudaFree(B_gpu);
     cudaFree(C_gpu);
 
-    printf(" ----- Completed successfully. ----- ");
+    printf("done!");
     return 0;
 }
