@@ -5,7 +5,7 @@
 
 #define TPB 32
 
-// check errors
+// check the erros
 #define CHECK(call) do {                                 \
     cudaError_t err = (call);                            \
     if (err != cudaSuccess) {                            \
@@ -35,7 +35,7 @@ int main()
 {
     double iStart, iElaps1, iElaps2, iElaps3;
 
-    // Loop over N values from 2^6 to 2^20
+    // 2^6 to 2^20
     for (int N = 64; N <= 1048576; N *= 2)
     {
         printf("\n========== N = %d ==========\n", N);
@@ -43,13 +43,13 @@ int main()
         // @@ 1. Allocate in host memory.
         float *h1, *h2, *h3, *h3_cpu;
 
-        // Use regular malloc for host memory (or cudaHostAlloc with proper flags)
+        // regular malloc for host memory or cudaHostAlloc with proper flags for the pinned version
         // h1 = (float*)malloc(N * sizeof(float));
         // h2 = (float*)malloc(N * sizeof(float));
         // h3 = (float*)malloc(N * sizeof(float));
         // h3_cpu = (float*)malloc(N * sizeof(float));
 
-        // Alternative: if you want to use pinned memory with cudaHostAlloc:
+        // pinned
         cudaHostAlloc(&h1, N * sizeof(float), cudaHostAllocDefault);
         cudaHostAlloc(&h2, N * sizeof(float), cudaHostAllocDefault);
         cudaHostAlloc(&h3, N * sizeof(float), cudaHostAllocDefault);
@@ -115,7 +115,7 @@ int main()
         // free(h3);
         // free(h3_cpu);
 
-        // If using cudaHostAlloc, use:
+        // if using cudaHostAlloc
         cudaFreeHost(h1);
         cudaFreeHost(h2);
         cudaFreeHost(h3);
