@@ -94,6 +94,6 @@ int main()
     cudaFree(B_gpu);
     cudaFree(C_gpu);
 
-    printf("done!");
+    printf("\n done! \n");
     return 0;
 }
