@@ -23,15 +23,12 @@ double cpuSecond() {
 
 __global__ void matrixMult(float *C, const float *A, const float *B, int numARows, int numAColumns, int numBColumns)
 {
-    // Each thread computes one element C[row][col]
     int row = blockIdx.y * blockDim.y + threadIdx.y;
     int col = blockIdx.x * blockDim.x + threadIdx.x;
     
-    // Check bounds
     if (row < numARows && col < numBColumns) {
         float sum = 0.0f;
-        
-        // Compute dot product of row from A and column from B
+
         for (int k = 0; k < numAColumns; k++) {
             sum += A[row * numAColumns + k] * B[k * numBColumns + col];
         }
@@ -44,10 +41,10 @@ int main()
 {
     double iStart, iElaps1, iElaps2, iElaps3;
 
-    // Loop over different matrix sizes
+    // loop over matrix size
     for (int size_factor = 1; size_factor <= 15; size_factor++)
     {
-        // Increase dimensions progressively
+        // increase dimensions
         int N = 32 * size_factor;  // numARows = numCRows
         int M = 64 * size_factor;  // numAColumns = numBRows  
         int P = 16 * size_factor;  // numBColumns = numCColumns
@@ -108,7 +105,7 @@ int main()
         printf("Total GPU time: %f ms\n", (iElaps1 + iElaps2 + iElaps3) * 1000);
 
         // @@ 8. Compare the results with the CPU reference result
-        // Simple verification - all elements should be M (since we're multiplying matrices of 1s)
+        // check the result to make sure
         int errors = 0;
         float expected = (float)M;
         for (int i = 0; i < N * P; i++) {
