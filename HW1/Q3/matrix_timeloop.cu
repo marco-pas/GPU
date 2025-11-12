@@ -134,6 +134,6 @@ int main()
         cudaFree(C_gpu);
     }
 
-    printf("\n ----- Completed successfully. ----- \n");
+    printf("\n done! \n");
     return 0;
 }
