@@ -4,3 +4,5 @@
 *.pdf
 *.prof
 *.test*
+*.nsys*
+*.html*
