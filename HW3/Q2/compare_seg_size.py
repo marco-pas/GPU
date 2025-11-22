@@ -15,15 +15,14 @@ def save_both(basename):
     plt.savefig(f"{basename}.pdf", bbox_inches="tight")
 
 
+# Execution times in milliseconds
 cpu_times = [
-    0.324963,   # CPU execution time
+    0.324963,
 ]
-
 gpu_basic_times = [
-    0.935294,   # GPU basic execution time
+    0.935294,
 ]
 
-# All GPU streams execution times (single list, all segment sizes)
 gpu_stream_times = [
     5.42703,    # seg 2048
     1.8499,     # seg 8192
@@ -35,9 +34,8 @@ gpu_stream_times = [
 
 segment_sizes = [2048, 8192, 32768, 131072, 160000, 524288]
 array_len=2097152
-# --- Bar plot: segment size vs GPU streamed time ---
 
-x = np.arange(len(segment_sizes))  # 0..5
+x = np.arange(len(segment_sizes))
 
 plt.figure(figsize=(10, 6))
 ax = plt.gca()

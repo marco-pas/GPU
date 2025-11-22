@@ -75,13 +75,11 @@ gpu_tiled_64_128_32 = [
     6.216838,
 ]
 
-# --- Plot grouped histogram (bar chart) ---
 
-x = np.arange(len(matrix_sizes))  # 0..7
+x = np.arange(len(matrix_sizes))
 plt.figure(figsize=(10, 6))
 ax1 = plt.gca()
 
-# log scale is handy because CPU times explode for big matrices
 ax1.set_yscale("log")
 
 bar_width = 0.15
@@ -91,15 +89,15 @@ ax1.bar(x - 2*bar_width, cpu_times,
 ax1.bar(x - 1*bar_width, gpu_basic_times,
         width=bar_width, label="GPU basic")
 ax1.bar(x, gpu_tiled_32_32_32,
-        width=bar_width, label="tiled 32×32×32")
+        width=bar_width, label="tiled 32x32x32")
 ax1.bar(x + 1*bar_width, gpu_tiled_32_64_32,
-        width=bar_width, label="tiled 32×64×32")
+        width=bar_width, label="tiled 32x64x32")
 ax1.bar(x + 2*bar_width, gpu_tiled_64_128_32,
-        width=bar_width, label="tiled 64×128×32")
+        width=bar_width, label="tiled 64x128x32")
 
 ax1.set_xticks(x)
 ax1.set_xticklabels(matrix_sizes)
-ax1.set_xlabel("Matrix size A(N × N), B(N × N), C(N × N) ")
+ax1.set_xlabel("Matrix size A(N x N), B(N x N), C(N x N) ")
 ax1.set_ylabel("Time [ms]")
 ax1.set_title("GEMM execution time vs matrix size")
 ax1.grid(axis="y", linestyle="--", alpha=0.7)

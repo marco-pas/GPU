@@ -16,9 +16,6 @@ def save_both(basename):
     plt.savefig(f"{basename}.png", dpi=600, bbox_inches="tight")
     plt.savefig(f"{basename}.pdf", bbox_inches="tight")
 
-
-
-# Vector lengths for each run (1..9)
 vector_lengths = [
     8192,
     16384,
@@ -31,7 +28,7 @@ vector_lengths = [
     2097152,
 ]
 
-# CPU execution times (ms) per run
+# Execution times in milliseconds
 cpu_times = [
     0.0006012,
     0.0011342,
@@ -44,7 +41,6 @@ cpu_times = [
     0.224036,
 ]
 
-# GPU basic execution times (ms) per run
 gpu_basic_times = [
     0.0196712,
     0.0224866,
@@ -57,11 +53,7 @@ gpu_basic_times = [
     0.944627,
 ]
 
-# Segment sizes present in the GPU-stream experiments
 segment_sizes = [8192, 32768, 65536, 131072]
-
-# GPU streams execution times (ms), grouped by segment size.
-# Each inner list contains all measurements for that segment size across all runs.
 
 gpu_stream_times_by_segment = [
     # segment size = 8192
@@ -119,28 +111,21 @@ gpu_stream_times_by_segment = [
 ]
 
 
-# --- Plot grouped histogram (bar chart) ---
 
-x = np.arange(len(vector_lengths))  # positions 0..8
+x = np.arange(len(vector_lengths))
 plt.figure(figsize=(10, 6))
 ax1 = plt.gca()
 
-# Optional: log-scale if you want (can comment out)
-# ax1.set_yscale("log")
-
 bar_width = 0.13
 
-# Build series: first GPU basic, then each stream segment
 series_labels = ["GPU basic"] + [f"GPU streams (seg={sz})" for sz in segment_sizes]
 series_values = [gpu_basic_times] + gpu_stream_times_by_segment
 
-n_series = len(series_labels)  # 1 + number of segment sizes
+n_series = len(series_labels)
 
 for s, (label, vals) in enumerate(zip(series_labels, series_values)):
     vals = np.asarray(vals, dtype=float)
     offset = (s - (n_series - 1) / 2.0) * bar_width
-
-    # Mask out NaNs so we don't plot bars where there is no measurement
     mask = ~np.isnan(vals)
     ax1.bar(x[mask] + offset,
             vals[mask],
