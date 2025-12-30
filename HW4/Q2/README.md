@@ -1,0 +1,1 @@
+To compile the heat_eq.cu code use the Makefile and run the make command.

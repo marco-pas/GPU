@@ -1,0 +1,1 @@
+To compile the wmma_gemm.cu code use the Makefile and run the make command.
